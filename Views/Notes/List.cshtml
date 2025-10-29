@@ -1,0 +1,78 @@
+@model IEnumerable<AwsNotes.Models.NoteItem>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">Notes</h2>
+  <div>
+    <a asp-action="Create" class="btn btn-primary">➕ New Note</a>
+  </div>
+</div>
+
+@if (!Model.Any()) {
+  <div class="panel-deepsea text-center py-5">
+    <h4 class="mb-3">No notes yet</h4>
+    <p class="lead">Create your first note to keep track of ideas and attachments.</p>
+    <a asp-action="Create" class="btn btn-primary mt-2">Create note</a>
+  </div>
+} else {
+  <div class="row g-4">
+    @foreach (var n in Model.OrderByDescending(x => x.CreatedUtc)) {
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">@n.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@n.CreatedUtc.ToLocalTime().ToString("g")</h6>
+            <p class="card-text text-truncate" style="max-height:4.5rem;">@n.Note</p>
+
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                @if (!string.IsNullOrEmpty(n.S3Key)) {
+                  <span class="badge bg-secondary">File</span>
+                }
+              </div>
+              <div>
+                <button type="button" class="btn btn-outline-light btn-sm me-2" data-bs-toggle="modal" data-bs-target="#noteModal" data-title="@n.Title" data-note="@Html.Raw(System.Text.Encodings.Web.HtmlEncoder.Default.Encode(n.Note))">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Modal to view full note -->
+  <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="noteModalLabel">Note</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="noteModalBody" class="mb-0"></p>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @section Scripts {
+    <script>
+      (function(){
+        var noteModal = document.getElementById('noteModal');
+        if(!noteModal) return;
+        noteModal.addEventListener('show.bs.modal', function (event) {
+          var button = event.relatedTarget;
+          var title = button.getAttribute('data-title') || 'Note';
+          var note = button.getAttribute('data-note') || '';
+          var modalTitle = noteModal.querySelector('.modal-title');
+          var modalBody = noteModal.querySelector('#noteModalBody');
+          modalTitle.textContent = title;
+          // decode HTML entities & preserve line breaks
+          modalBody.innerHTML = note.replace(/\n/g, '<br/>');
+        });
+      })();
+    </script>
+  }
+}

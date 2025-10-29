@@ -1,0 +1,33 @@
+@model AwsNotes.Models.NoteCreateViewModel
+
+<div class="container mt-4">
+  <div class="panel-deepsea">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">🐚 New Note</h2>
+      <a asp-action="List" class="btn btn-outline-light">← Back to list</a>
+    </div>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Note</label>
+        <textarea asp-for="Note" rows="6" class="form-control"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">File (optional)</label>
+        <input asp-for="File" type="file" class="form-control" />
+      </div>
+
+      <div class="d-flex align-items-center">
+        <button type="submit" class="btn btn-primary me-3">💾 Save</button>
+        <a asp-action="List" class="btn btn-outline-light">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

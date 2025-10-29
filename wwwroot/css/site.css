@@ -1,0 +1,132 @@
+:root{
+  --ds-900: #021625;
+  --ds-800: #033b50;
+  --ds-700: #0a4860;
+  --ds-500: #1186a7;
+  --ds-accent: #32c2d8;
+  --ds-100: #e6fbff;
+}
+
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+}
+
+body {
+  margin: 0 0 60px 0;
+  color: var(--ds-100);
+  background: linear-gradient(180deg, var(--ds-900) 0%, var(--ds-800) 40%, var(--ds-700) 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  /* Use Merriweather for readable body text, with a soft shell-like accent font for headings */
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  font-weight: 300;
+}
+
+/* Navbar */
+.bg-deepsea {
+  background: linear-gradient(90deg, rgba(2,22,37,0.95), rgba(6,58,70,0.95));
+}
+.navbar-dark .navbar-brand, .navbar-dark .nav-link {
+  color: var(--ds-100) !important;
+}
+.navbar-dark .nav-link:hover, .navbar-dark .nav-link:focus {
+  color: var(--ds-accent) !important;
+}
+
+/* Decorative shell-like headings */
+h1,h2,h3,h4,h5 {
+  font-family: 'Pacifico', 'Merriweather', serif;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35), 0 6px 18px rgba(2,8,16,0.45);
+  color: var(--ds-100);
+}
+
+/* Add a subtle seashell glyph before important headings and the brand */
+.navbar-brand::before, h1::before, .panel-deepsea .panel-title::before {
+  content: "🐚 ";
+  margin-right: 6px;
+  transform: translateY(-1px);
+}
+
+/* Accent paragraph/lead styling to look like 'coral' shells */
+.lead {
+  color: rgba(230,251,255,0.92);
+  border-left: 3px solid rgba(50,194,216,0.12);
+  padding-left: 0.75rem;
+}
+
+/* Container tweaks */
+.container {
+  max-width: 980px;
+}
+
+/* Card styles */
+.card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--ds-100);
+}
+.card-header, .card-body {
+  background: transparent;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--ds-accent);
+  border-color: rgba(50,194,216,0.95);
+  color: #012;
+  font-family: 'Pacifico', 'Merriweather', serif;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #24b9cc;
+  border-color: rgba(36,185,204,1);
+}
+
+/* Forms */
+.form-control {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--ds-100);
+}
+.form-control::placeholder { color: rgba(230,251,255,0.6); }
+.form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(50,194,216,0.15);
+  border-color: rgba(50,194,216,0.6);
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(90deg, rgba(2,22,37,0.9), rgba(6,58,70,0.9));
+  color: var(--ds-100);
+  padding: 1rem 0;
+}
+
+/* Utility: subtle translucent panels for content */
+.panel-deepsea {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(2,10,20,0.5);
+}
+
+/* Accessibility helpers */
+.text-muted { color: rgba(230,251,255,0.65) !important; }
+
+/* Keep spacing at bottom so footer doesn't overlap */
+body { padding-bottom: 60px; }
+
+/* small screens tweaks */
+@media (max-width: 575.98px) {
+  .container { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* Keep some default focus rings for keyboard users */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.15rem rgba(50,194,216,0.18);
+}
